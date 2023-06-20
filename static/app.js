@@ -7,16 +7,17 @@ $(document).ready(function(){
     });
 
     $("#submitLinks").click(function(){
-        // Remove the "Copy Combined Link" button, if it exists.
-        $("#result").empty();
-    
+        $("#resultButton").remove(); // Removes the "Copy Combined Link" button if it exists.
+
         let links = [];
+
         $('.form-control').each(function() {
             let link = $(this).val();
             if (link) {
                 links.push(link);
             }
         });
+
         $.ajax({
             url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink?" + $.param({links: links}, true),
             type: 'get',
@@ -24,7 +25,9 @@ $(document).ready(function(){
                 let result = "<button class='btn btn-primary btn-block' onclick='copyToClipboard(`" + response.url + "`)' id='resultButton'>Copy Combined Link</button>";
                 $("#result").html(result);
                 document.querySelector('#resultButton').scrollIntoView({ behavior: 'smooth' });
-                $('#preview').attr('src', response.image_url).show();
+
+                // Display the image using the 'blob-url' from the response.
+                $('#preview').attr('src', response['blob-url']).show();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 if(jqXHR.status == 429){
