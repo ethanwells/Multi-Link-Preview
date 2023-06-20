@@ -7,10 +7,11 @@
     <meta property="og:url" content="{{ request.url }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        @media (max-width: 576px) {
-            .btn-custom {
-                padding: 30px 0;
-            }
+        .btn-custom {
+            height: 20vh; /* 1/5 of the viewport height */
+        }
+        .btn-custom:first-child {
+            margin-top: 20px; /* Padding between image and first button */
         }
     </style>
 </head>
