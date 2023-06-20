@@ -7,8 +7,10 @@ $(document).ready(function(){
     });
 
     $("#submitLinks").click(function(){
+        // Remove the "Copy Combined Link" button, if it exists.
+        $("#result").empty();
+    
         let links = [];
-
         $('.form-control').each(function() {
             let link = $(this).val();
             if (link) {
