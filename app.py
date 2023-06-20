@@ -1,23 +1,34 @@
 from flask import Flask
 from flask_cors import CORS
 import os
-import mysql.connector
 import json as json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, url_for, send_file
 import requests
-import shutil
 import createMultiPreview
-from flask import send_file
+from google.cloud import storage
+import uuid
+import uniqueWebpage
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
 CORS(app)
 
+# create a MongoDB client
+mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@Multi-Link-Preview.mongodb.net/imageID-to-links-db")
+
+# connect to mongoDB database
+db = mongo_client["imageID-to-links"]
+
+# Create a google cloud storage client
+googleCloudStorageClient = storage.Client()
+
 # linkpreview api key
 apiKey = 'ee90116b69e85da1f27ab213596f28fb'
 
 @app.route('/createMultiLink', methods=['GET'])
-def hello_world():
+def create_multi_link():
     # delete previous preview generated
     if os.path.exists("multi-link-preview.jpg"):  # If the file exists, delete it
         os.remove("multi-link-preview.jpg")
@@ -46,10 +57,45 @@ def hello_world():
         else: 
             return f'Error downloading image: {link}', 500
     createMultiPreview.run(image_names)  # create multi preview image
+    
     # delete all images saved locally
     for image_name in image_names:
         os.remove(image_name)
-    return send_file('multi-link-preview.jpg', mimetype='image/jpeg'), 200
+
+    # upload image to google cloud storage
+    bucket = googleCloudStorageClient.bucket("multi-link-preview-images")  # get bucket
+    uniqueId = uuid.uuid4()  # generate unique id for image
+    blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
+    blob.upload_from_filename("multi-link-preview.jpg")  # upload image to blob
+
+    # insert new imageID-to-links mapping entry into MongoDB
+    doc = {"_id": uniqueId, "links": links}
+    db.links.insert_one(doc)
+
+    # generate the URL for the webpage
+    webpage_url = url_for('multi_link', id=uniqueId, _external=True)
+    
+    # return the URL to the client
+    return jsonify({'url': webpage_url}), 200
+
+
+# Create webpage for unique image id
+# This is the webpage that will be shared
+@app.route('/multi-link/<id>')
+def multi_link(id):
+    # get the entry with this uniaue imageID from MongoDB database
+    doc = db.links.find_one({"_id": id})
+
+    # check if the document exists
+    if doc is None:
+        return "Page not found | imageID not stored in DB", 404
+
+    # get the list of links
+    links = doc["links"]
+
+    return uniqueWebpage.create_webpage(id, links)
+
+
 
 port = int(os.environ.get("PORT", 5000))
 if __name__ == '__main__':
