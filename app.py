@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 import os
 import json as json
-from flask import Flask, jsonify, request, url_for, send_file
+from flask import Flask, jsonify, request, url_for, send_file, render_template
 import requests
 import createMultiPreview
 from google.cloud import storage
@@ -27,6 +27,11 @@ googleCloudStorageClient = storage.Client()
 
 # linkpreview api key
 apiKey = 'ee90116b69e85da1f27ab213596f28fb'
+
+@app.route('/')
+def home():
+    return render_template('your_frontend_page.html')
+
 
 @app.route('/createMultiLink', methods=['GET'])
 def create_multi_link():
