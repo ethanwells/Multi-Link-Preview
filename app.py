@@ -11,6 +11,7 @@ import uniqueWebpage
 from pymongo import MongoClient
 import bson
 import random
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
@@ -30,7 +31,11 @@ apiKey = 'ee90116b69e85da1f27ab213596f28fb'
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except HTTPException as e:
+        if e.code == 429:
+            return jsonify(error="app requests exceeded. wait 60 minutes."), 429
 
 
 @app.route('/createMultiLink', methods=['GET'])
@@ -85,7 +90,8 @@ def create_multi_link():
 
     blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
     blob.upload_from_filename("multi-link-preview.jpg")  # upload image to blob
-    print(f"google cloud blob: https://storage.cloud.google.com/multi-link-preview-images/{uniqueId}.jpg?authuser=1")
+    print(f"google cloud blob: https://storage.googleapis.com/multi-link-preview-images/{uniqueId}.jpg")
+    
     # insert new imageID-to-links mapping entry into MongoDB
     doc = {"_id": str(uniqueId), "links": links}
     db.links.insert_one(doc)
