@@ -33,9 +33,9 @@ apiKey = 'ee90116b69e85da1f27ab213596f28fb'
 def home():
     try:
         return render_template('index.html')
-    except HTTPException as e:
-        if e.code == 429:
-            return jsonify(error="app requests exceeded. wait 60 minutes."), 429
+    except Exception as e:
+        print("THROTTLE ERROR TRIGGERED")
+        return jsonify(error="app requests exceeded. wait 60 minutes."), 429
 
 
 @app.route('/createMultiLink', methods=['GET'])
