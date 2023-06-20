@@ -22,7 +22,7 @@ $(document).ready(function(){
             url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink?" + $.param({links: links}, true),
             type: 'get',
             success: function(response){
-                let result = "<button class='btn btn-primary btn-block' onclick='copyToClipboard(`" + response.url + "`)' id='resultButton'>Copy Combined Link</button>";
+                let result = "<button class='btn btn-primary btn-block' onclick='copyToClipboard(`" + response.url + "`)' id='resultButton'>Copy Chainlink</button>";
                 $("#result").html(result);
                 document.querySelector('#resultButton').scrollIntoView({ behavior: 'smooth' });
 
