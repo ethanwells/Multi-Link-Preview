@@ -76,8 +76,7 @@ def create_multi_link():
 
     blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
     blob.upload_from_filename("multi-link-preview.jpg")  # upload image to blob
-    print(f"google cloud blob: https://storage.googleapis.com/multi-link-preview-images/{str(uniqueId)}.jpg")
-
+    print(f"google cloud blob: https://storage.cloud.google.com/multi-link-preview-images/{uniqueImageID}.jpg?authuser=1")
     # insert new imageID-to-links mapping entry into MongoDB
     doc = {"_id": str(uniqueId), "links": links}
     db.links.insert_one(doc)
