@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <img src="{{ image_url }}" alt="Multi Link Preview">
         {% for link in links %}
-            <button class="btn btn-primary btn-custom" onclick="window.location.href='{{ link }}'">
+            <button class="btn btn-primary btn-custom py-3" onclick="window.location.href='{{ link }}'">
                 Link {{ loop.index }}
             </button>
         {% endfor %}
