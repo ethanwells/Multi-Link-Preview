@@ -91,7 +91,8 @@ def create_multi_link():
 
     blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
     blob.upload_from_filename("multi-link-preview.jpg")  # upload image to blob
-    print(f"google cloud blob: https://storage.googleapis.com/multi-link-preview-images/{uniqueId}.jpg")
+    blobUrl = "https://storage.googleapis.com/multi-link-preview-images/{uniqueId}.jpg"
+    print(f"google cloud blob: {blobUrl}")
     
     # insert new imageID-to-links mapping entry into MongoDB
     doc = {"_id": str(uniqueId), "links": links}
@@ -101,7 +102,7 @@ def create_multi_link():
     webpage_url = url_for('multi_link', id=str(uniqueId), _external=True)
     
     # return the URL to the client
-    return jsonify({'url': webpage_url}), 200
+    return jsonify({'url': webpage_url, 'blob-url': blobUrl}), 200
 
 
 # Create webpage for unique image id
