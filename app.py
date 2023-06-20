@@ -74,7 +74,7 @@ def create_multi_link():
     print(f"google cloud blob: https://storage.googleapis.com/multi-link-preview-images/{str(uniqueId)}.jpg")
 
     # insert new imageID-to-links mapping entry into MongoDB
-    doc = {"_id": uniqueId, "links": links}
+    doc = {"_id": 123, "links": links}
     db.links.insert_one(doc)
 
     # generate the URL for the webpage
