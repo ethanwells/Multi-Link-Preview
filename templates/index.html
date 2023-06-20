@@ -26,10 +26,26 @@
                 </div>
             </div>
         {% endfor %}
-        <button class="btn btn-primary btn-block" id="submitLinks">Submit Links</button>
+        <button class="btn btn-primary btn-block" id="submitLinks" onclick="handleSubmit()">Submit Links</button>
         <div id="result" class="text-center mt-3"></div>
+        <button class="btn btn-primary btn-block" id="copyButton" style="display: none;">Copy Combined Link</button>
         <img id="preview" class="img-fluid fade-in" style="display: none">
     </div>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+        function handleSubmit() {
+            document.getElementById('copyButton').style.display = 'none';
+            setTimeout(function(){
+                document.getElementById('copyButton').style.display = 'block';
+                renderPreview();
+            }, 2000);  // simulate waiting for API response
+        }
+
+        function renderPreview() {
+            var img = document.getElementById('preview');
+            img.src = '{{ image_url }}';  // assuming image_url is a variable from your server-side code
+            img.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
