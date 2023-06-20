@@ -42,7 +42,7 @@ def create_multi_link():
     if links is None:
         return 'No link provided', 400  # return Bad Request response
     print("received links:")
-    print(f"bulk: {links} | type: {type(links)}")
+    print(f"bulk: {links} | type: {type(links)} | len: {len(links)}")
     for i, link in enumerate(links):
         print(f"{i}: {link}")
     # process each link:
