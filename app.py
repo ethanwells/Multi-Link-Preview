@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 # create a MongoDB client
-mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@multi-link-preview.pxruagg.mongodb.net/imageID-to-links-db", uuidRepresentation=UuidRepresentation.STANDARD)
+mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@multi-link-preview.pxruagg.mongodb.net/imageID-to-links-db")
 
 # connect to mongoDB database
 db = mongo_client["imageID-to-links"]
