@@ -41,7 +41,9 @@ def create_multi_link():
     links = request.args.getlist('links')  # get list of links from query param
     if links is None:
         return 'No link provided', 400  # return Bad Request response
-    
+    print("received links:")
+    for i, link in enumerate(links):
+        print(f"{i}: {link}")
     # process each link:
     image_names = []
     for i, link in enumerate(links):
