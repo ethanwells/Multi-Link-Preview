@@ -1,0 +1,23 @@
+body {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.linkInput {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 300px;
+}
+
+#submitLinks {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#submitLinks:hover {
+    background-color: #0056b3;
+}
