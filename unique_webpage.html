@@ -6,33 +6,42 @@
         body {
             margin: 0;
             padding: 20px;
+            font-size: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 16px;
         }
         img {
             width: 100%;
-            max-width: 800px;
+            height: auto;
         }
-        a {
+        .button {
             display: inline-block;
-            margin: 10px 0;
             background-color: blue;
             color: white;
             text-decoration: none;
             padding: 15px;
             border-radius: 5px;
-            width: 100%;
+            margin: 10px 0;
+            font-size: 1.25em;
             text-align: center;
+            width: 100%;
             max-width: 600px;
+        }
+        @media (min-width: 600px) {
+            body {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
     <img src="{{ image_url }}" alt="Multi Link Preview">
-    {% for link in links %}
-    <a href="{{ link }}">Link {{ loop.index }}</a>
+    {% for i, link in enumerate(links) %}
+    <a href="{{ link }}" class="button">Link {{ i+1 }}</a><br>
     {% endfor %}
 </body>
 </html>
