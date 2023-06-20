@@ -1,4 +1,11 @@
 $(document).ready(function(){
+    $('button').on('click', function() {
+        $(this).addClass('animate__animated animate__pulse');
+        setTimeout(() => {
+            $(this).removeClass('animate__animated animate__pulse');
+        }, 1000);
+    });
+
     $("#submitLinks").click(function(){
         let links = [];
 
@@ -15,6 +22,7 @@ $(document).ready(function(){
                 let result = "<button class='btn btn-primary btn-block' onclick='copyToClipboard(`" + response.url + "`)' id='resultButton'>Copy Combined Link</button>";
                 $("#result").html(result);
                 document.querySelector('#resultButton').scrollIntoView({ behavior: 'smooth' });
+                $('#preview').attr('src', response.image_url).show();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 if(jqXHR.status == 429){

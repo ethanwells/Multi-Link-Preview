@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn ease 1s;
+        }
+        @keyframes fadeIn {
+            0% {opacity:0;}
+            100% {opacity:1;}
+        }
+    </style>
 </head>
 <body>
     <div class="container py-5">
@@ -19,6 +28,7 @@
         {% endfor %}
         <button class="btn btn-primary btn-block" id="submitLinks">Submit Links</button>
         <div id="result" class="text-center mt-3"></div>
+        <img id="preview" class="img-fluid fade-in" style="display: none">
     </div>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
