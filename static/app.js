@@ -10,11 +10,10 @@ $(document).ready(function(){
         });
 
         $.ajax({
-            url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink",
+            url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink?" + $.param({links: links}, true),
             type: 'get',
-            data: { links: links },
             success: function(response){
-                $("#result").html("Result link: <a href='" + response + "'>" + response + "</a>");
+                $("#result").html("Result link: <a href='" + response.url + "'>" + response.url + "</a>");
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(textStatus, errorThrown);
