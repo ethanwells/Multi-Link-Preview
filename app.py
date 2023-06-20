@@ -66,8 +66,11 @@ def create_multi_link():
     bucket = googleCloudStorageClient.bucket("multi-link-preview-images")  # get bucket
     
     # generate unique id for image
-    uniqueId = "12345"
-    #bson.Binary(uuid.uuid4().bytes, bson.binary.UUID_SUBTYPE)
+    uniqueId = ""
+    while True:  # keep looping until we get a unique ID
+        uniqueId = str(random.randint(1000000000, 9999999999))  # generate 10-digit random number and convert to string
+        if db.links.find_one({"_id": uniqueId}) is None:  # if the ID doesn't exist in the database
+            break  # we've found a unique ID, so we can stop looping
     print(f"uniqueID: {str(uniqueId)}")
 
     blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
