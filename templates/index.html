@@ -4,6 +4,18 @@
     <title>Multi Link Submission</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .footer-prompt {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            color: black;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Enter your links:</h1>
@@ -16,6 +28,10 @@
     <button id="submitLinks">Submit Links</button>
 
     <p id="result"></p>
+
+    <div id="footer-prompt" class="footer-prompt" style="display: none;">
+        <p>App requests exceeded. Wait 60 minutes.</p>
+    </div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
