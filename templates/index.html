@@ -2,53 +2,9 @@
 <html>
 <head>
     <title>Multi Link Submission</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
-        body {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            font-size: 16px;
-        }
-        #submitLinks {
-            background-color: blue;
-            color: white;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.25em;
-            border: none;
-            border-radius: 5px;
-        }
-        .linkContainer {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .linkContainer input[type=text] {
-            flex-grow: 1;
-        }
-        .linkContainer button {
-            background-color: green;
-            color: white;
-            margin-left: 10px;
-            height: 30px;
-            align-self: center;
-            border: none;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-        @media (max-width: 480px) {
-            .linkContainer {
-                flex-direction: column;
-            }
-            .linkContainer input[type=text], 
-            .linkContainer button {
-                width: 100%;
-                margin: 5px 0;
-            }
-        }
-    </style>
 </head>
 <body>
     <h1>Enter your links:</h1>
