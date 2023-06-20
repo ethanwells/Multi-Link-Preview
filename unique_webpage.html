@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi Link Preview</title>
+</head>
+<body>
+    <img src="{{ image_url }}" alt="Multi Link Preview">
+    {% for link in links %}
+    <a href="{{ link }}">{{ link }}</a><br>
+    {% endfor %}
+</body>
+</html>
