@@ -31,12 +31,7 @@ apiKey = 'ee90116b69e85da1f27ab213596f28fb'
 
 @app.route('/')
 def home():
-    try:
-        return render_template('index.html')
-    except Exception as e:
-        print("THROTTLE ERROR TRIGGERED")
-        return jsonify(error="app requests exceeded. wait 60 minutes."), 429
-
+    return render_template('index.html')
 
 @app.route('/createMultiLink', methods=['GET'])
 def create_multi_link():
@@ -55,6 +50,12 @@ def create_multi_link():
     for i, link in enumerate(links):
         # get link preview data from LinkPreview API
         linkPreviewResponse = requests.get(f"http://api.linkpreview.net/?key={apiKey}&q={link}")
+        
+         # check for rate limiting
+        if linkPreviewResponse.status_code == 429:
+            print("THROTTLE ERROR TRIGGERED")
+            return jsonify(error="app requests exceeded. wait 60 minutes."), 429
+        
         data = linkPreviewResponse.json()  # convert response to json
         print(f"{i}: link preview data: {data}")
 
