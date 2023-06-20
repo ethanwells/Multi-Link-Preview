@@ -2,11 +2,37 @@
 <html>
 <head>
     <title>Multi Link Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+        img {
+            width: 100%;
+            max-width: 800px;
+        }
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center;
+            max-width: 600px;
+        }
+    </style>
 </head>
 <body>
     <img src="{{ image_url }}" alt="Multi Link Preview">
     {% for link in links %}
-    <a href="{{ link }}">{{ link }}</a><br>
+    <a href="{{ link }}">Link {{ loop.index }}</a>
     {% endfor %}
 </body>
 </html>
