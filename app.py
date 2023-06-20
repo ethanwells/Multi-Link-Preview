@@ -8,8 +8,8 @@ import createMultiPreview
 from google.cloud import storage
 import uuid
 import uniqueWebpage
-from pymongo import MongoClient, UuidRepresentation
-from bson.objectid import ObjectId
+from pymongo import MongoClient
+import bson
 
 app = Flask(__name__)
 
@@ -64,7 +64,10 @@ def create_multi_link():
 
     # upload image to google cloud storage
     bucket = googleCloudStorageClient.bucket("multi-link-preview-images")  # get bucket
-    uniqueId = uuid.uuid4()  # generate unique id for image
+    
+    # generate unique id for image
+    uniqueId = bson.Binary(uuid.uuid4().bytes, bson.binary.UUID_SUBTYPE)
+    
     blob = bucket.blob(f"{uniqueId}.jpg")  # create blob
     blob.upload_from_filename("multi-link-preview.jpg")  # upload image to blob
 
@@ -73,7 +76,7 @@ def create_multi_link():
     db.links.insert_one(doc)
 
     # generate the URL for the webpage
-    webpage_url = url_for('multi_link', id=uniqueId, _external=True)
+    webpage_url = url_for('multi_link', id=str(uniqueId), _external=True)
     
     # return the URL to the client
     return jsonify({'url': webpage_url}), 200
