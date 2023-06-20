@@ -13,16 +13,28 @@
 </head>
 <body>
     <h1>Enter your links:</h1>
-    <input type="text" id="link1" class="linkInput">
-    <input type="text" id="link2" class="linkInput">
-    <input type="text" id="link3" class="linkInput">
-    <input type="text" id="link4" class="linkInput">
-    <input type="text" id="link5" class="linkInput">
-
+    <div>
+        <input type="text" id="link1" class="linkInput">
+        <button onclick="pasteFromClipboard('link1')">Paste from clipboard</button>
+    </div>
+    <div>
+        <input type="text" id="link2" class="linkInput">
+        <button onclick="pasteFromClipboard('link2')">Paste from clipboard</button>
+    </div>
+    <div>
+        <input type="text" id="link3" class="linkInput">
+        <button onclick="pasteFromClipboard('link3')">Paste from clipboard</button>
+    </div>
+    <div>
+        <input type="text" id="link4" class="linkInput">
+        <button onclick="pasteFromClipboard('link4')">Paste from clipboard</button>
+    </div>
+    <div>
+        <input type="text" id="link5" class="linkInput">
+        <button onclick="pasteFromClipboard('link5')">Paste from clipboard</button>
+    </div>
     <button id="submitLinks">Submit Links</button>
-
     <p id="result"></p>
-
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>
