@@ -30,7 +30,7 @@ apiKey = 'ee90116b69e85da1f27ab213596f28fb'
 
 @app.route('/')
 def home():
-    return render_template('your_frontend_page.html')
+    return render_template('index.html')
 
 
 @app.route('/createMultiLink', methods=['GET'])
