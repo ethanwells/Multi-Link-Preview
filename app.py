@@ -8,7 +8,7 @@ import createMultiPreview
 from google.cloud import storage
 import uuid
 import uniqueWebpage
-from pymongo import MongoClient
+from pymongo import MongoClient, UuidRepresentation
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 # create a MongoDB client
-mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@multi-link-preview.pxruagg.mongodb.net/imageID-to-links-db")
+mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@multi-link-preview.pxruagg.mongodb.net/imageID-to-links-db", uuidRepresentation=UuidRepresentation.STANDARD))
 
 # connect to mongoDB database
 db = mongo_client["imageID-to-links"]
