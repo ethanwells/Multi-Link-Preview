@@ -66,7 +66,7 @@ def create_multi_link():
     bucket = googleCloudStorageClient.bucket("multi-link-preview-images")  # get bucket
     
     # generate unique id for image
-    uniqueId = 1234
+    uniqueId = "12345"
     #bson.Binary(uuid.uuid4().bytes, bson.binary.UUID_SUBTYPE)
     print(f"uniqueID: {str(uniqueId)}")
 
@@ -75,7 +75,7 @@ def create_multi_link():
     print(f"google cloud blob: https://storage.googleapis.com/multi-link-preview-images/{str(uniqueId)}.jpg")
 
     # insert new imageID-to-links mapping entry into MongoDB
-    doc = {"_id": uniqueId, "links": links}
+    doc = {"_id": str(uniqueId), "links": links}
     db.links.insert_one(doc)
 
     # generate the URL for the webpage
@@ -91,6 +91,7 @@ def create_multi_link():
 def multi_link(id):
     # get the entry with this uniaue imageID from MongoDB database
     doc = db.links.find_one({"_id": id})
+    print(f"doc: {doc}  id: {id}")
 
     # check if the document exists
     if doc is None:
