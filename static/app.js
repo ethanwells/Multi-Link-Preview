@@ -8,7 +8,7 @@ $(document).ready(function(){
                 links.push(link);
             }
         });
-
+        console.log(links);
         $.ajax({
             url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink?" + $.param({links: links}, true),
             type: 'get',
