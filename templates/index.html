@@ -9,27 +9,37 @@
             background-color: blue;
             color: white;
         }
+        .linkContainer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .linkContainer button {
+            background-color: green;
+            color: white;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Enter your links:</h1>
-    <div>
+    <div class="linkContainer">
         <input type="text" id="link1" class="linkInput">
         <button onclick="pasteFromClipboard('link1')">Paste from clipboard</button>
     </div>
-    <div>
+    <div class="linkContainer">
         <input type="text" id="link2" class="linkInput">
         <button onclick="pasteFromClipboard('link2')">Paste from clipboard</button>
     </div>
-    <div>
+    <div class="linkContainer">
         <input type="text" id="link3" class="linkInput">
         <button onclick="pasteFromClipboard('link3')">Paste from clipboard</button>
     </div>
-    <div>
+    <div class="linkContainer">
         <input type="text" id="link4" class="linkInput">
         <button onclick="pasteFromClipboard('link4')">Paste from clipboard</button>
     </div>
-    <div>
+    <div class="linkContainer">
         <input type="text" id="link5" class="linkInput">
         <button onclick="pasteFromClipboard('link5')">Paste from clipboard</button>
     </div>
