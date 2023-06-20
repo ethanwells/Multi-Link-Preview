@@ -2,31 +2,30 @@ $(document).ready(function(){
     $("#submitLinks").click(function(){
         let links = [];
 
-        $('.linkInput').each(function() {
+        $('.form-control').each(function() {
             let link = $(this).val();
             if (link) {
                 links.push(link);
             }
         });
-        console.log(links);
         $.ajax({
             url: "https://multi-link-preview-465eb123f193.herokuapp.com/createMultiLink?" + $.param({links: links}, true),
             type: 'get',
             success: function(response){
-                $("#result").html("Result link: <a href='" + response.url + "'>" + response.url + "</a>");
+                let result = "<button class='btn btn-primary btn-block' onclick='copyToClipboard(`" + response.url + "`)' id='resultButton'>Copy Combined Link</button>";
+                $("#result").html(result);
+                document.querySelector('#resultButton').scrollIntoView({ behavior: 'smooth' });
             },
             error: function(jqXHR, textStatus, errorThrown){
                 if(jqXHR.status == 429){
-                    $("#submitLinks").css('background-color', 'red');
-                    $("#submitLinks").css('color', 'black');
+                    $("#submitLinks").prop('disabled', true);
                     $("#submitLinks").html("Hourly Limit Reached");
                 }
                 console.log(textStatus, errorThrown);
             },
             complete: function() {
                 setTimeout(function() {
-                    $("#submitLinks").css('background-color', 'blue');
-                    $("#submitLinks").css('color', 'white');
+                    $("#submitLinks").prop('disabled', false);
                     $("#submitLinks").html("Submit Links");
                 }, 60000); // reset button after 60 minutes
             }
@@ -42,4 +41,12 @@ function pasteFromClipboard(inputId) {
         .catch(err => {
             console.error('Failed to read clipboard contents: ', err);
         });
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        console.log('Copying to clipboard was successful!');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+    });
 }

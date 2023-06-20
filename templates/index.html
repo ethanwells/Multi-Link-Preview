@@ -3,33 +3,23 @@
 <head>
     <title>Multi Link Submission</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Enter your links:</h1>
-    <div class="linkContainer">
-        <input type="text" id="link1" class="linkInput">
-        <button onclick="pasteFromClipboard('link1')">Paste from clipboard</button>
+    <div class="container py-5">
+        <h1 class="text-center">Enter your links:</h1>
+        {% for i in range(1, 6) %}
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="link{{i}}" placeholder="Link {{i}}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="pasteFromClipboard('link{{i}}')">Paste from clipboard</button>
+                </div>
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary btn-block" id="submitLinks">Submit Links</button>
+        <div id="result" class="text-center mt-3"></div>
     </div>
-    <div class="linkContainer">
-        <input type="text" id="link2" class="linkInput">
-        <button onclick="pasteFromClipboard('link2')">Paste from clipboard</button>
-    </div>
-    <div class="linkContainer">
-        <input type="text" id="link3" class="linkInput">
-        <button onclick="pasteFromClipboard('link3')">Paste from clipboard</button>
-    </div>
-    <div class="linkContainer">
-        <input type="text" id="link4" class="linkInput">
-        <button onclick="pasteFromClipboard('link4')">Paste from clipboard</button>
-    </div>
-    <div class="linkContainer">
-        <input type="text" id="link5" class="linkInput">
-        <button onclick="pasteFromClipboard('link5')">Paste from clipboard</button>
-    </div>
-    <button id="submitLinks">Submit Links</button>
-    <p id="result"></p>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>
