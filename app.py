@@ -51,6 +51,7 @@ def create_multi_link():
         # get link preview data from LinkPreview API
         linkPreviewResponse = requests.get(f"http://api.linkpreview.net/?key={apiKey}&q={link}")
         data = linkPreviewResponse.json()  # convert response to json
+        print(f"{i}: link preview data: {data}")
 
         # Make request to download image from data
         imageResponse = requests.get(data['image'])
