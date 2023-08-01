@@ -1,0 +1,48 @@
+{% extends 'layouts/layouts.index.html' %}
+{% block body %}	
+    
+    <section id="photo py-3 mb-3">
+        <button class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 mb-3" onclick="handleBack()">
+            Back
+        </button>
+    </section>
+    
+    <section class="mb-3">
+    
+        <a href="{{next_url}}" target="_blank">
+            <div class="w-[300px] h-[160px] bg-gray-500 rounded-lg overflow-hidden flex justify-center items-center relative">
+                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+                    Loading...
+                </span>
+                <img src="/createMultiLink?links={{next_url}}" alt="Loading..." class="block z-10"/>
+            </div>
+            <p class="mt-2">Watch This Video</p>
+        </a>
+    </section>
+    <script>
+       
+        function handleBack(){
+            
+            function getCookieValue(name) {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+                }
+            }
+            return null;
+            }
+            function deleteCookie(name) {
+                document.cookie = name + "=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+
+             var cookieValue = getCookieValue('prev_url');                
+
+            if (cookieValue) {
+                deleteCookie('prev_url');
+                window.location.href = "/";
+            }
+        }
+    </script>
+{% endblock %}
