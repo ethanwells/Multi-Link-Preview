@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Message on Chain Link ⛓️</title>
+    <meta property="og:image" content="{{ image_url }}">
+    <meta property="og:title" content="New Message on Chain Link ⛓️">
+    <meta property="og:url" content="{{ request.url }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .btn-custom {
+            height: 10vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid pt-3">
+        <div class="mb-3">
+            <img src="{{ image_url }}" class="img-fluid" alt="Multi Link Preview">
+        </div>
+        {% for link in links %}
+            <a href="{{ link }}" class="btn btn-primary btn-block btn-custom d-flex align-items-center justify-content-center">
+                <h4 class="mb-0">View Link {{ loop.index }}</h4>
+            </a>
+        {% endfor %}
+    </div>
+</body>
+</html>

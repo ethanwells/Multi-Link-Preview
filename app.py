@@ -1,6 +1,5 @@
 from flask_cors import CORS
 import os
-import mysql.connector
 import json as json
 from flask import Flask, jsonify, request, send_file, render_template, make_response, url_for, redirect
 from googleapiclient.discovery import build
