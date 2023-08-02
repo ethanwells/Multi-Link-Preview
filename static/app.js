@@ -41,12 +41,91 @@ $(document).ready(function(){
             }
         });
     });
+
+    
+    for(let i = 1; i < 6; i++){
+        const cookie = $.cookie("video_link"+i);
+        if(cookie){
+            $("#link"+i).val(cookie);
+
+            //Too many request will occur Error 426/429 from linkpreview (Exceeds)
+
+            // if(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/\w\W*)*\/??\/.+$/.test(cookie)){
+
+            //     const apiKey = "e643b89bdc8fe8b31fce6595c218c05d";
+            
+            //     $.ajax({
+            //         url: "http://api.linkpreview.net/?key=" + apiKey + "&q=" + cookie,
+            //         type: 'get',
+            //         success: function(response){                        
+            //             $("img#thumb_link"+i).attr('src', response.image).show();
+            //         },
+            //     });
+            // }
+        }
+    }
+    $('div.input-group').find('input').on('input', function() {
+        const url = $(this).val();
+        const id = $(this).attr('id');
+        $.cookie("video_"+id, url);
+
+        if(url && url!=="" && /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/\w\W*)*\/??\/.+$/.test(url)){            
+            const apiKey = "26469aad62a864ac4bbb91fcdf43c0e1";
+
+            $.ajax({
+                url: "http://api.linkpreview.net/?key=" + apiKey + "&q=" + url,
+                type: 'get',
+                success: function(response){                    
+                    $("img#thumb_"+id).attr('src', response.image).show();
+                },
+            });
+        }else{
+            $("img#thumb_"+id).attr('src', "").show();
+        }
+    });
+    $('div.input-group').find('input').blur(function() {
+        const url = $(this).val();
+        const id = $(this).attr('id');
+        
+        if(url && url!=="" && /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/\w\W*)*\/??\/.+$/.test(url)){            
+            const apiKey = "26469aad62a864ac4bbb91fcdf43c0e1";
+
+            $.ajax({
+                url: "http://api.linkpreview.net/?key=" + apiKey + "&q=" + url,
+                type: 'get',
+                success: function(response){                    
+                    $("img#thumb_"+id).attr('src', response.image).show();
+                },
+            });
+        }else{
+            $("img#thumb_"+id).attr('src', "").show();
+        }
+        
+    })
 });
+
 
 function pasteFromClipboard(inputId) {
     navigator.clipboard.readText()
         .then(text => {
             document.getElementById(inputId).value = text;
+
+            $.cookie("video_"+inputId, text);
+
+            if(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/\w\W*)*\/??\/.+$/.test(text)){
+                const apiKey = "26469aad62a864ac4bbb91fcdf43c0e1";          
+
+                $.ajax({
+                    url: "http://api.linkpreview.net/?key=" + apiKey + "&q=" + text,
+                    type: 'get',
+                    success: function(response){                    
+                        $("img#thumb_"+inputId).attr('src', response.image).show();
+                    },
+                });
+            }else{
+                $("img#thumb_"+inputId).attr('src', "").show();
+            }
+            
         })
         .catch(err => {
             console.error('Failed to read clipboard contents: ', err);
@@ -59,4 +138,8 @@ function copyToClipboard(text) {
     }, function(err) {
         console.error('Could not copy text: ', err);
     });
+}
+
+function handleBack() {
+    window.history.back();
 }

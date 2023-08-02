@@ -14,6 +14,14 @@
 </head>
 <body>
     <div class="container-fluid pt-3">
+        <button onclick="handleBack()" class="btn btn-lg btn-primary btn-custom rounded-circle m-2">
+            &lArr;
+        </button>        
+        <div class="mb-3">
+            <a href="{{url_for('/')}}" class="btn btn-lg btn-primary btn-custom">
+                &lArr;
+            </a>
+        </div>
         <div class="mb-3">
             <img src="{{ image_url }}" class="img-fluid" alt="Multi Link Preview">
         </div>
