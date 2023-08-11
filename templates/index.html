@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <meta property="og:image" content="{{ url_for('static', filename='mainPreview.jpg') }}">
     <meta property="og:url" content="https://multi-link-preview-465eb123f193.herokuapp.com/">
     <style>
@@ -15,15 +16,27 @@
             0% {opacity:0;}
             100% {opacity:1;}
         }
+        .clip-thumbnail{
+            width: 48px;
+            height:32px;
+            overflow: hidden;
+
+        }
     </style>
 </head>
 <body>
-    <div class="container py-5">
+    <div class="container py-5">        
         <h1 class="text-center">Enter your links:</h1>
         {% for i in range(1, 6) %}
+          
             <div class="input-group mb-3">
+                <div class="bg-light border-warning  mx-2 flex  flex-col justify-center items-center over-flow-hidden d-flex flex-column justify-content-center align-items-center clip-thumbnail">
+                    <img id="thumb_link{{i}}" alt="" class="w-100 object-cover"/>
+                </div>
                 <input type="text" class="form-control" id="link{{i}}" placeholder="Link {{i}}">
-                <div class="input-group-append">
+               
+                <div class="input-group-append d-flex">
+                   
                     <button class="btn btn-outline-secondary" type="button" onclick="pasteFromClipboard('link{{i}}')">Paste from clipboard</button>
                 </div>
             </div>
@@ -32,6 +45,7 @@
 <div id="result" class="text-center my-3"></div>
 <img id="preview" class="img-fluid fade-in my-3" style="display: none">
     </div>
+    
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>
