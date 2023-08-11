@@ -12,6 +12,9 @@ from pymongo import MongoClient
 import bson
 import random
 from werkzeug.exceptions import HTTPException
+from google.oauth2.service_account import Credentials
+from google.cloud import storage
+
 
 app = Flask(__name__)
 
@@ -23,8 +26,11 @@ mongo_client = MongoClient("mongodb+srv://ethanthewells:wN72WqVgAuUaEf6N@multi-l
 # connect to mongoDB database
 db = mongo_client["imageID-to-links"]
 
+# Load credentials from the service account file
+credentials = Credentials.from_service_account_file('gc-credentials.json')
+
 # Create a google cloud storage client
-googleCloudStorageClient = storage.Client()
+googleCloudStorageClient = storage.Client(credentials=credentials)
 
 # linkpreview api key
 apiKey = 'ee90116b69e85da1f27ab213596f28fb'
